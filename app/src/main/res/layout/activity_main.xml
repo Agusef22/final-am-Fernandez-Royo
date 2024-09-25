@@ -193,7 +193,7 @@
                 android:layout_marginRight="25dp"
                 android:background="@drawable/rounded_button_fav"
                 android:text="Favorite -->"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
         </LinearLayout>
     </ScrollView>
