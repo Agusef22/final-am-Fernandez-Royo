@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Weather app</string>
     <string name="favorites_cities">Favorites Cities</string>
+    <string name="name_city">Buenos Aires</string>
 </resources>

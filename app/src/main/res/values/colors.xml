@@ -5,4 +5,5 @@
     <color name="background">#F3E9FE</color>
     <color name="text_color">#331866</color>
     <color name="button_color">#5dade2</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
