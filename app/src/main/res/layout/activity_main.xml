@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="Mostly Cloudy"
+                android:text="@string/mostly_cloudy"
                 android:textAlignment="center"
                 android:textColor="@color/text_color"
                 android:textSize="20sp" />
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Buenos Aires"
+                android:text="@string/buenos_aires"
                 android:textAlignment="center"
                 android:textColor="@color/text_color"
                 android:textSize="20sp" />
@@ -72,7 +72,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="25º"
+                android:text="@string/_25"
                 android:textAlignment="center"
                 android:textColor="@color/text_color"
                 android:textSize="60sp"
@@ -101,7 +101,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Mon"
+                            android:text="@string/mon"
                             android:textAlignment="center"/>
 
                         <ImageView
@@ -116,7 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="22/13"
+                            android:text="@string/_22_13"
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"/>
                     </LinearLayout>
@@ -133,7 +133,7 @@
                             android:id="@+id/textView8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Tue"
+                            android:text="@string/tue"
                             android:textAlignment="center"/>
 
                         <ImageView
@@ -146,7 +146,7 @@
                             android:id="@+id/textView7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="20/15"
+                            android:text="@string/_20_15"
                             android:layout_marginTop="5dp"
                             android:textAlignment="center"/>
                     </LinearLayout>
@@ -163,7 +163,7 @@
                             android:id="@+id/textView4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Wed"
+                            android:text="@string/wed"
                             android:textAlignment="center"/>
 
                         <ImageView
@@ -176,7 +176,7 @@
                             android:id="@+id/textView5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="23/14"
+                            android:text="@string/_23_14"
                             android:layout_marginTop="5dp"
                             android:textAlignment="center"/>
 
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="25dp"
-                    android:text="Fav"
+                    android:text="@string/fav_button"
                     android:textSize="16sp" />
 
                 <Button
@@ -206,7 +206,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Home" />
+                    android:text="@string/home_button" />
 
                 <Button
                     android:id="@+id/button3"
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="256dp"
-                    android:text="info" />
+                    android:text="@string/info_button" />
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         </LinearLayout>
