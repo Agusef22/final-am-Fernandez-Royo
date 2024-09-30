@@ -18,26 +18,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/parentLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="35dp"
                 android:layout_gravity="center">
-
-                <SearchView
-                    android:id="@+id/search_view"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_search_view"
-                    android:queryHint="Search for any location" />
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    app:srcCompat="@android:drawable/btn_star"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="15dp"/>
             </LinearLayout>
 
             <TextView
@@ -186,7 +172,7 @@
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginRight="25dp"
@@ -212,9 +198,10 @@
                     android:id="@+id/button3"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="256dp"
-                    android:text="@string/info_button" />
+                    android:layout_gravity="end"
+                    android:text="@string/info_button"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="3.5dp"/>
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         </LinearLayout>

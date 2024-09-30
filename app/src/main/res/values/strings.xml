@@ -11,7 +11,7 @@
     <string name="_20_15">20/15</string>
     <string name="wed">Wed</string>
     <string name="_23_14">23/14</string>
-    <string name="fav_button">Fav</string>
-    <string name="home_button">Home</string>
-    <string name="info_button">info</string>
+    <string name="fav_button">FAV</string>
+    <string name="home_button">HOME</string>
+    <string name="info_button">INFO</string>
 </resources>
