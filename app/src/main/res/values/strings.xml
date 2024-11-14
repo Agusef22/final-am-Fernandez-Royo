@@ -14,4 +14,6 @@
     <string name="fav_button">FAV</string>
     <string name="home_button">HOME</string>
     <string name="info_button">INFO</string>
+    <string name="api_key">a767f9647bfa479c802235339242710</string>
+
 </resources>
