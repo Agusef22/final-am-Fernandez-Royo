@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WeatherApiClient {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://api.weatherapi.com/v1/search.json?key=";
+    private static final String BASE_URL = "https://api.weatherapi.com/v1/";
 
     public static Retrofit getApiClient() {
         if (retrofit == null) {

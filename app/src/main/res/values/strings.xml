@@ -2,9 +2,9 @@
     <string name="app_name">Weather app</string>
     <string name="favorites_cities">Favorites Cities</string>
     <string name="name_city">Buenos Aires</string>
-    <string name="mostly_cloudy">Mostly Cloudy</string>
-    <string name="buenos_aires">Buenos Aires</string>
-    <string name="_25">25º</string>
+    <string name="mostly_cloudy">Status</string>
+    <string name="buenos_aires">City Name</string>
+    <string name="_25">Temp</string>
     <string name="mon">Mon</string>
     <string name="_22_13">22/13</string>
     <string name="tue">Tue</string>
