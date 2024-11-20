@@ -30,8 +30,11 @@ import com.example.weatherapp.api.WeatherApiClient;
 import com.example.weatherapp.api.WeatherApiService;
 import com.example.weatherapp.models.WeatherData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private ScrollView backgroundMainActivity;
     private BottomNavigationView bottomNavigationView;
     private WeatherData weatherDataSelected;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        firestore = FirebaseFirestore.getInstance();
 
         weatherApiService = WeatherApiClient.getApiClient().create(WeatherApiService.class);
         cityCondition = findViewById(R.id.textView);
@@ -100,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
         imageParams.setMargins(25,0,0,0);
         imageView.setLayoutParams(imageParams);
         imageView.setImageResource(android.R.drawable.btn_star);
+
+        imageView.setOnClickListener(v -> addToFavorites());
 
         parentlayout.addView(searchView);
         parentlayout.addView(imageView);
@@ -167,6 +175,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void addToFavorites() {
+        if (weatherDataSelected != null) {
+
+            Map<String, Object> favoriteCity = new HashMap<>();
+            favoriteCity.put("name", weatherDataSelected.getLocation().getName());
+            favoriteCity.put("temperature", weatherDataSelected.getCurrent().getTemp_c());
+            favoriteCity.put("condition", weatherDataSelected.getCurrent().getCondition().getText());
+
+
+            firestore.collection("favoriteCity")
+                    .add(favoriteCity)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(MainActivity.this, "City added to favorites!", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Error adding city: ", e);
+                        Toast.makeText(MainActivity.this, "Failed to add city to favorites.", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(this, "No city selected. Search for a city first.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void updateUI(WeatherData weatherData) {
         cityName.setText(weatherData.getLocation().getName());
         cityTemp.setText(String.format("%s°C", weatherData.getCurrent().getTemp_c()));
@@ -193,8 +224,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
 
         if(view.getId() == R.id.button) {
-            intent = new Intent(this, FavoriteActivity.class);
-            startActivity(intent);
+            if (weatherDataSelected != null) {
+                intent = new Intent(this, FavoriteActivity.class);
+                intent.putExtra("cityWeather", weatherDataSelected);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No data available. Please search for a city first.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (view.getId() == R.id.button11) {

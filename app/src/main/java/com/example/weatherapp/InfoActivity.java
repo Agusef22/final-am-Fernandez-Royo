@@ -58,10 +58,6 @@ public class InfoActivity extends AppCompatActivity {
             cityRegion.setText(weatherData.getLocation().getRegion());
             cityCountry.setText(weatherData.getLocation().getCountry());
             cityLocalTime.setText(weatherData.getLocation().getLocaltime());
-
-
-//            String iconURL = "https:" + weatherData.getCurrent().getCondition().getIcon();
-//            Glide.with(this).load(iconURL).into(imageCondition);
         } else {
             Toast.makeText(this, "No data available", Toast.LENGTH_SHORT).show();
         }

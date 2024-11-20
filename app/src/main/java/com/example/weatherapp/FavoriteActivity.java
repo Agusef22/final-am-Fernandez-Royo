@@ -11,9 +11,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.weatherapp.models.WeatherData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FavoriteActivity extends AppCompatActivity {
+
+    private String cityForMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +30,17 @@ public class FavoriteActivity extends AppCompatActivity {
         });
         FloatingActionButton backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(this::onClick);
+
+
+        WeatherData weatherData = (WeatherData) getIntent().getSerializableExtra("cityWeather");
+
+        cityForMain = weatherData.getLocation().getName();
+
     }
 
     public void onClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("cityName", cityForMain);
         startActivity(intent);
     }
 }
