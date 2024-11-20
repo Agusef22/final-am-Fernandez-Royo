@@ -1,6 +1,8 @@
 package com.example.weatherapp.models;
 
-public class WeatherData {
+import java.io.Serializable;
+
+public class WeatherData implements Serializable {
     private Location location;
     private Current current;
 
@@ -12,10 +14,11 @@ public class WeatherData {
         return current;
     }
 
-    public class Location {
+    public class Location implements Serializable {
         private String name;
         private String region;
         private String country;
+        private String localtime;
 
         public String getName() {
             return name;
@@ -28,21 +31,30 @@ public class WeatherData {
         public String getCountry() {
             return country;
         }
+
+        public String getLocaltime() {
+            return localtime;
+        }
     }
 
-    public class Current {
+    public class Current implements Serializable{
         private double temp_c;
         private Condition condition;
+        private int is_day;
 
         public double getTemp_c() {
             return temp_c;
+        }
+
+        public int getIs_day() {
+            return is_day;
         }
 
         public Condition getCondition() {
             return condition;
         }
 
-        public class Condition {
+        public class Condition implements Serializable{
             private String text;
             private String icon;
 

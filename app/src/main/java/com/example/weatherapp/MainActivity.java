@@ -1,6 +1,7 @@
 package com.example.weatherapp;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,6 +29,9 @@ import com.bumptech.glide.Glide;
 import com.example.weatherapp.api.WeatherApiClient;
 import com.example.weatherapp.api.WeatherApiService;
 import com.example.weatherapp.models.WeatherData;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView cityTemp;
     private ImageView imageCondition;
     private TextView cityCondition;
+    private ScrollView backgroundMainActivity;
+    private BottomNavigationView bottomNavigationView;
+    private WeatherData weatherDataSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         cityName = findViewById(R.id.textView2);
         cityTemp = findViewById(R.id.textView3);
         imageCondition = findViewById(R.id.imageView);
+        backgroundMainActivity = findViewById(R.id.backgroundMain);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         Button favoriteButton = findViewById(R.id.button);
         favoriteButton.setOnClickListener(this::onClick);
@@ -62,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
         Button InfoButton = findViewById(R.id.button11);
         InfoButton.setOnClickListener(this::onClick);
 
+        Intent intent = getIntent();
+        String cityName = intent.getStringExtra("cityName");
+
+        if (cityName != null) {
+            fetchWeatherData(cityName);
+        }
 
         LinearLayout parentlayout = findViewById(R.id.parentLayout);
 
@@ -130,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.isSuccessful() && response.body() != null) {
                     updateUI(response.body());
+                    weatherDataSelected = response.body();
                 } else {
                     Toast.makeText(MainActivity.this, "city not found", Toast.LENGTH_SHORT).show();
                 }
@@ -154,6 +172,19 @@ public class MainActivity extends AppCompatActivity {
         cityTemp.setText(String.format("%s°C", weatherData.getCurrent().getTemp_c()));
         cityCondition.setText(weatherData.getCurrent().getCondition().getText());
 
+        if(weatherData.getCurrent().getIs_day() == 1) {
+            backgroundMainActivity.setBackgroundColor(getResources().getColor(R.color.background));
+            bottomNavigationView.setBackgroundColor(getResources().getColor(R.color.background));
+            cityName.setTextColor(getResources().getColor(R.color.text_color));
+            cityTemp.setTextColor(getResources().getColor(R.color.text_color));
+            cityCondition.setTextColor(getResources().getColor(R.color.text_color));
+        } else {
+            backgroundMainActivity.setBackgroundColor(getResources().getColor(R.color.backgroundNight));
+            bottomNavigationView.setBackgroundColor(getResources().getColor(R.color.backgroundNightBottom));
+            cityName.setTextColor(getResources().getColor(R.color.white));
+            cityTemp.setTextColor(getResources().getColor(R.color.white));
+            cityCondition.setTextColor(getResources().getColor(R.color.white));
+        }
         String iconURL = "https:" + weatherData.getCurrent().getCondition().getIcon();
         Glide.with(this).load(iconURL).into(imageCondition);
     }
@@ -167,8 +198,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (view.getId() == R.id.button11) {
-            intent = new Intent(this, InfoActivity.class);
-            startActivity(intent);
+            if (weatherDataSelected != null) {
+                intent = new Intent(this, InfoActivity.class);
+                intent.putExtra("cityWeather", weatherDataSelected);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "No data available. Please search for a city first.", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
