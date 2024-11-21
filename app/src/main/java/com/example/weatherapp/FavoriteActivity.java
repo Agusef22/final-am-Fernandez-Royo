@@ -36,6 +36,8 @@ public class FavoriteActivity extends AppCompatActivity {
 
         cityForMain = weatherData.getLocation().getName();
 
+
+
     }
 
     public void onClick(View view) {

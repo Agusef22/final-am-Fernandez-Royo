@@ -177,26 +177,40 @@ public class MainActivity extends AppCompatActivity {
 
     private void addToFavorites() {
         if (weatherDataSelected != null) {
-
-            Map<String, Object> favoriteCity = new HashMap<>();
-            favoriteCity.put("name", weatherDataSelected.getLocation().getName());
-            favoriteCity.put("temperature", weatherDataSelected.getCurrent().getTemp_c());
-            favoriteCity.put("condition", weatherDataSelected.getCurrent().getCondition().getText());
-
+            String cityName = weatherDataSelected.getLocation().getName();
 
             firestore.collection("favoriteCity")
-                    .add(favoriteCity)
-                    .addOnSuccessListener(documentReference -> {
-                        Toast.makeText(MainActivity.this, "City added to favorites!", Toast.LENGTH_SHORT).show();
+                    .whereEqualTo("name", cityName)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            Toast.makeText(MainActivity.this, "City is already in favorites!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Map<String, Object> favoriteCity = new HashMap<>();
+                            favoriteCity.put("name", cityName);
+                            favoriteCity.put("temperature", weatherDataSelected.getCurrent().getTemp_c());
+                            favoriteCity.put("condition", weatherDataSelected.getCurrent().getCondition().getText());
+
+                            firestore.collection("favoriteCity")
+                                    .add(favoriteCity)
+                                    .addOnSuccessListener(documentReference -> {
+                                        Toast.makeText(MainActivity.this, "City added to favorites!", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e("Firestore", "Error adding city: ", e);
+                                        Toast.makeText(MainActivity.this, "Failed to add city to favorites.", Toast.LENGTH_SHORT).show();
+                                    });
+                        }
                     })
                     .addOnFailureListener(e -> {
-                        Log.e("Firestore", "Error adding city: ", e);
-                        Toast.makeText(MainActivity.this, "Failed to add city to favorites.", Toast.LENGTH_SHORT).show();
+                        Log.e("Firestore", "Error checking city: ", e);
+                        Toast.makeText(MainActivity.this, "Error checking favorites.", Toast.LENGTH_SHORT).show();
                     });
         } else {
             Toast.makeText(this, "No city selected. Search for a city first.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void updateUI(WeatherData weatherData) {
         cityName.setText(weatherData.getLocation().getName());
