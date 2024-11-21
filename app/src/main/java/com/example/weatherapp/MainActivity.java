@@ -243,7 +243,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("cityWeather", weatherDataSelected);
                 startActivity(intent);
             } else {
-                Toast.makeText(this, "No data available. Please search for a city first.", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, FavoriteActivity.class);
+                startActivity(intent);
             }
         }
 

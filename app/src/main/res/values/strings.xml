@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Weather app</string>
-    <string name="favorites_cities">Favorites Cities</string>
+    <string name="favorites_cities">Favorite Cities</string>
     <string name="name_city">Buenos Aires</string>
     <string name="mostly_cloudy">Status</string>
     <string name="buenos_aires">City Name</string>
@@ -15,7 +15,7 @@
     <string name="home_button">HOME</string>
     <string name="info_button">INFO</string>
     <string name="api_key">a767f9647bfa479c802235339242710</string>
-    <string name="infotitle">Information City</string>
+    <string name="infotitle">City Information</string>
     <string name="city_name">City Name</string>
     <string name="city_region">City Region</string>
     <string name="city_country">City Country</string>
